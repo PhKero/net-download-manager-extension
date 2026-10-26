@@ -17,7 +17,11 @@ export function getManifestForFirefox(): ManifestV2 {
         browser_specific_settings: {
             gecko: {
                 id: "net-download-manager@phkero",
-            }
+                // required by addons.mozilla.org for new add-ons; links only go to the app on this PC
+                data_collection_permissions: {
+                    required: ["none"],
+                },
+            } as any
         },
         browser_action: getBrowserActionInfo(),
         permissions: [
