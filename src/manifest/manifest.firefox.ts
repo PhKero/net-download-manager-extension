@@ -17,8 +17,7 @@ export function getManifestForFirefox(): ManifestV2 {
         browser_specific_settings: {
             gecko: {
                 id: "net-download-manager@phkero",
-                // Firefox checks this file (attached to each GitHub release) and installs newer signed versions by itself
-                update_url: "https://github.com/PhKero/net-download-manager/releases/latest/download/firefox-updates.json",
+                // listed on addons.mozilla.org: Mozilla delivers the updates, so no update_url here
                 // required by addons.mozilla.org for new add-ons; links only go to the app on this PC
                 data_collection_permissions: {
                     required: ["none"],

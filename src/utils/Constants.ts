@@ -1,9 +1,9 @@
-const website = "https://abdownloadmanager.com"
+const website = "https://github.com/PhKero/net-download-manager"
 export default {
     packageName: "com.abdownloadmanager",
     defaultPort: 15151,
     website: website,
-    downloadAppUrl: `${website}/#download`,
-    repository: "https://github.com/amir1376/ab-download-manager",
+    downloadAppUrl: `${website}/releases/latest`,
+    repository: "https://github.com/PhKero/net-download-manager-extension",
     authHeaderName: "X-Api-Key"
 }

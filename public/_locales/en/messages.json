@@ -147,7 +147,7 @@
     "message": "Download captured silently"
   },
   "download_media_title": {
-    "message": "Download With ABDM"
+    "message": "Download with NDM"
   },
   "config_capture_file_size_limit_kb": {
     "message": "Capture file size minimum (KB)"

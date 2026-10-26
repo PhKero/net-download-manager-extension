@@ -1,11 +1,11 @@
 {
   "name": "ab-download-manager-browser-integration",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "displayName": "Net Download Manager Browser Integration",
-  "author": "AmirHossein Abdolmotallebi",
+  "author": "PhKero",
   "description": "Download files and videos with Net Download Manager",
   "repository": "https://github.com/amir1376/ab-download-manager-browser-integration",
-  "homepage": "https://abdownloadmanager.com",
+  "homepage": "https://github.com/PhKero/net-download-manager",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
