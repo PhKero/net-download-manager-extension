@@ -8,6 +8,7 @@ import {keepListeningToEvents} from "~/utils/extension-api";
 import {IS_MV3} from "~/utils/ManifestUtil";
 import {setHoldingKey} from "~/background/BackgroundSharedState";
 import {DefinedCommands} from "~/message/Commands";
+import {fetchVideoInfo} from "~/backend/VideoInfoApi";
 import {defineExtensionEntry} from "~/utils/DefineExtensionEntry";
 import platformInfoProvider from "~/utils/platform/InitPlatformFromBackground";
 import BackgroundEntryType from "~/utils/EntryPointTypes/background/BackgroundEntryType";
@@ -36,6 +37,10 @@ function receiveMessageFromContentScripts() {
     })
     onMessage(DefinedCommands.GET_PLATFORM, async () => {
         return await platformInfoProvider.getPlatformInfo()
+    })
+    onMessage(DefinedCommands.VIDEO_INFO, async (msg) => {
+        const {link, downloadPage} = msg.data as { link: string, downloadPage: string | null }
+        return await fetchVideoInfo(link, downloadPage)
     })
 }
 

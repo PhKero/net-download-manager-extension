@@ -1,9 +1,9 @@
 {
   "name": "ab-download-manager-browser-integration",
   "version": "1.5.0",
-  "displayName": "AB Download Manager Browser Integration",
+  "displayName": "Net Download Manager Browser Integration",
   "author": "AmirHossein Abdolmotallebi",
-  "description": "Download files with AB Download Manager app",
+  "description": "Download files and videos with Net Download Manager",
   "repository": "https://github.com/amir1376/ab-download-manager-browser-integration",
   "homepage": "https://abdownloadmanager.com",
   "private": true,

@@ -1,6 +1,8 @@
 import {getLinksFromSelection} from "~/utils/LinkExtractor";
 import * as selectionPopup from "~/popup/selection/SelectionPopup";
 import * as MediaPopup from "~/popup/media/MediaSelectionPopup";
+import * as VideoBar from "~/popup/video/VideoBar";
+import {openGrabber} from "~/popup/grabber/LinkGrabberPanel";
 import {debounce} from "~/utils/Debaunce";
 import * as mousePosition from "~/utils/MouseUtil"
 import * as HoldingKeyTracker from "~/utils/HoldingKeyTracker"
@@ -41,6 +43,11 @@ export default defineExtensionEntry()
     .withType(ContentScriptEntryType)
     .withInit(async () => {
         try {
+            VideoBar.boot()
+            if (window.top !== window) {
+                // in embedded frames only the video bar is useful; the rest stays in the main page
+                return
+            }
             mousePosition.boot()
             HoldingKeyTracker.boot()
             selectionPopup.setOnPopupClicked(async () => {
@@ -113,6 +120,9 @@ export default defineExtensionEntry()
             })
             onMessage(DefinedCommands.SHOW_ALERT, (msg) => {
                 alert(createAlertStringForMyExtension(msg.data))
+            })
+            onMessage(DefinedCommands.OPEN_LINK_GRABBER, () => {
+                openGrabber()
             })
             onMessage(DefinedCommands.CHECK_SELECTED_TEXT_FOR_LINKS, (msg) => {
                 checkAndReportLinks()

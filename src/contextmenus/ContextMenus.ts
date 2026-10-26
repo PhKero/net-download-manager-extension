@@ -7,6 +7,7 @@ import {DefinedCommands} from "~/message/Commands";
 const optionIds = Object.freeze({
     downloadWithAbDm: "download-with-ab-dm",
     downloadSelectedWithAbDm: "download-selected-with-ab-dm",
+    downloadAllLinks: "download-all-links",
 })
 
 async function createOptions() {
@@ -24,6 +25,11 @@ async function createOptions() {
         contexts: [
             "link", "audio", "video", "image"
         ]
+    })
+    browser.contextMenus.create({
+        id: optionIds.downloadAllLinks,
+        title: browser.i18n.getMessage("context_menu_download_all_links"),
+        contexts: ["page", "link", "image", "video", "audio"],
     })
 }
 
@@ -53,6 +59,16 @@ function createOnCLickHandlers() {
                 await addDownload([downloadRequest])
                 // backgroundReceiveMessage(addDownloadCommand([downloadRequest]))
                 break
+            case optionIds.downloadAllLinks: {
+                const allLinksTab = clickedTab?.id
+                    ?? (await browser.tabs.query({active: true, currentWindow: true}))[0]?.id
+                if (allLinksTab === undefined) break
+                await sendMessage(DefinedCommands.OPEN_LINK_GRABBER, null, {
+                    tabId: allLinksTab,
+                    context: "content-script",
+                })
+                break
+            }
             case optionIds.downloadSelectedWithAbDm:
                 // the tab has to come from the click itself, tabs.query({active:true})
                 // returns the active tab of every window and the first one is rarely ours

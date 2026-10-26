@@ -4,6 +4,7 @@ import { ProtocolWithReturn } from "webext-bridge";
 import {DownloadRequestHeaders, DownloadRequestItem} from "~/interfaces/DownloadRequestItem";
 import {DownloadableMedia} from "~/media/MediaOnTab";
 import type {Runtime} from "webextension-polyfill";
+import type {VideoInfo} from "~/backend/VideoInfoApi";
 
 declare module "webext-bridge" {
     export interface ProtocolMap {
@@ -18,5 +19,7 @@ declare module "webext-bridge" {
         get_headers:ProtocolWithReturn<string[],(DownloadRequestHeaders | null)[]>;
         set_holding_key: string;
         get_platform: ProtocolWithReturn<undefined, Runtime.PlatformInfo>,
+        open_link_grabber: null,
+        video_info: ProtocolWithReturn<{ link: string, downloadPage: string | null }, VideoInfo>,
     }
 }

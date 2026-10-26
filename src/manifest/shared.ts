@@ -20,6 +20,8 @@ export function getBaseManifest() {
         content_scripts: [{
             matches: ["*://*/*"],
             js: ["src/entrypoint/ContentScript.ts"],
+            // videos are often embedded from another site (e.g. a youtube player inside a news page)
+            all_frames: true,
         }],
         options_ui: {
             page: "src/entrypoint/OptionUi/index.html",
@@ -33,7 +35,7 @@ export function getBaseManifest() {
 
 export function getBrowserActionInfo(){
     return  {
-        default_title: "AB Download Manager",
+        default_title: "Net Download Manager",
         default_popup: "src/entrypoint/BrowserAction/index.html",
     }
 }
