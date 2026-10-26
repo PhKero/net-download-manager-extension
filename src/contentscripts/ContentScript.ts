@@ -128,7 +128,8 @@ export default defineExtensionEntry()
                 checkAndReportLinks()
             })
             onMessage(DefinedCommands.DOWNLOADABLE_MEDIA_DETECTED, (msg) => {
-                MediaPopup.updatePopup(msg.data)
+                // one bar only: the detected streams are listed in the video bar's menu
+                VideoBar.setDetectedMedia(msg.data)
             })
         } catch (e) {
             console.log("failed to load ab-dm-extension", e)

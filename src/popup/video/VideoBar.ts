@@ -2,6 +2,8 @@ import {sendMessage} from "webext-bridge/content-script";
 import {DefinedCommands} from "~/message/Commands";
 import {DownloadRequestItem} from "~/interfaces/DownloadRequestItem";
 import type {VideoInfo} from "~/backend/VideoInfoApi";
+import type {DownloadableMedia} from "~/media/MediaOnTab";
+import {addDownloads} from "~/contentscripts/AddDownloads";
 
 /**
  * "Download this video" bar shown over the main video player of any page.
@@ -35,6 +37,24 @@ let bar: HTMLDivElement | null = null
 let menu: HTMLDivElement | null = null
 let dismissedFor: string | null = null
 let currentVideo: HTMLVideoElement | null = null
+// streams the extension caught from this tab's network traffic (m3u8 / mp4 requests)
+let detectedMedia: DownloadableMedia[] = []
+
+/** replaces the old separate "Download with ..." pop-up: its list now lives in this bar's menu */
+export function setDetectedMedia(items: DownloadableMedia[]) {
+    detectedMedia = items ?? []
+}
+
+function downloadDetected(media: DownloadableMedia) {
+    addDownloads([{
+        link: media.uri,
+        suggestedName: media.suggestedFullName ?? "",
+        type: media.type,
+        downloadPage: location.href,
+        headers: media.requestHeaders ?? null,
+        description: null,
+    }])
+}
 
 function isVideoSite(): boolean {
     const host = location.hostname.toLowerCase().replace(/^www\./, "")
@@ -318,6 +338,13 @@ function openMenu(anchor: HTMLElement) {
     thisMenu.appendChild(videoPart)
     if (knownPlaylist) {
         addMenuSection(isPlaylistPage() ? "All videos on this page" : "Entire playlist", PLAYLIST_QUALITIES, q => sendPlaylistToApp(q))
+    }
+    if (detectedMedia.length) {
+        const rows = detectedMedia.map((m, i) => {
+            const details = [m.resolution, m.size, m.duration, m.extension].filter(Boolean).join(" · ")
+            return [String(i), (m.displayName ?? "Stream").slice(0, 50), details] as [string, string, string]
+        })
+        addMenuSection("Detected streams", rows, i => downloadDetected(detectedMedia[Number(i)]))
     }
     document.documentElement.appendChild(thisMenu)
     positionMenu(anchor)
