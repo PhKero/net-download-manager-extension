@@ -13,6 +13,8 @@ export function getBaseManifest() {
         author: pkg.author,
         default_locale: "en",
         icons: {
+            16: "icons/icon-16.png",
+            32: "icons/icon-32.png",
             48: icon48,
             96: icon96,
             128: icon128,
@@ -36,6 +38,12 @@ export function getBaseManifest() {
 export function getBrowserActionInfo(){
     return  {
         default_title: "Net Download Manager",
+        // without this Firefox shows a grey puzzle piece on the toolbar button
+        default_icon: {
+            16: "icons/icon-16.png",
+            32: "icons/icon-32.png",
+            48: "icons/icon-48.png",
+        },
         default_popup: "src/entrypoint/BrowserAction/index.html",
     }
 }
