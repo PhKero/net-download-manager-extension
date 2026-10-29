@@ -1,3 +1,4 @@
+import {appendHtml} from "~/utils/SafeHtml";
 import { PositionInPage } from "~/utils/MouseUtil";
 import browser from "webextension-polyfill";
 
@@ -126,7 +127,7 @@ function createUi(position: PositionInPage, onAction: () => void, onCancel: () =
 
     // Append the popup content to the shadow root
     const container = document.createElement("div");
-    container.innerHTML = popupString;
+    appendHtml(container, popupString);
     shadowRoot.appendChild(container.firstElementChild!);
 
     el.classList.add(AB_DM_POPUP_CLASSNAME);

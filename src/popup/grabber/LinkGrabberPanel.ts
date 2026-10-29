@@ -1,3 +1,4 @@
+import {appendHtml} from "~/utils/SafeHtml";
 import {DownloadRequestItem} from "~/interfaces/DownloadRequestItem";
 import {addDownloads} from "~/contentscripts/AddDownloads";
 
@@ -164,7 +165,7 @@ export function openGrabber() {
 
     const render = () => {
         headerText.textContent = `Download all links — ${links.length} files found`
-        body.innerHTML = ""
+        body.replaceChildren()
         checks = []
         if (links.length === 0) {
             const empty = document.createElement("div")

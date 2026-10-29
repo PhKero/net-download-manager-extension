@@ -1,3 +1,4 @@
+import {appendHtml} from "~/utils/SafeHtml";
 import {DownloadableMedia} from "~/media/MediaOnTab"
 import browser from "webextension-polyfill"
 
@@ -137,7 +138,7 @@ function createPopup() {
     `
     
     const contentContainer = document.createElement("div")
-    contentContainer.innerHTML = contentHTML
+    appendHtml(contentContainer, contentHTML)
     while (contentContainer.firstChild) {
         wrapper.appendChild(contentContainer.firstChild)
     }
@@ -197,7 +198,7 @@ export function updatePopup(items: DownloadableMedia[]) {
     countEl.textContent = String(items.length)
 
     const listContainer = popup.querySelector<HTMLDivElement>(".abdm-media-list")!
-    listContainer.innerHTML = ""
+    listContainer.replaceChildren()
 
     for (const item of items) {
         const el = document.createElement("div")
@@ -212,10 +213,14 @@ export function updatePopup(items: DownloadableMedia[]) {
             item.extension,
         ].filter(Boolean).join(" · ")
 
-        el.innerHTML = `
-          <div class="abdm-item-title">${title}</div>
-          <div class="abdm-item-details">${details}</div>
-        `
+        // title and details come from the website, so only as plain text
+        const titleEl = document.createElement("div")
+        titleEl.className = "abdm-item-title"
+        titleEl.textContent = title
+        const detailsEl = document.createElement("div")
+        detailsEl.className = "abdm-item-details"
+        detailsEl.textContent = details
+        el.append(titleEl, detailsEl)
 
         el.onclick = () => {
             onItemClick?.(item)

@@ -1,3 +1,4 @@
+import {appendHtml} from "~/utils/SafeHtml";
 import {sendMessage} from "webext-bridge/content-script";
 import {DefinedCommands} from "~/message/Commands";
 import {DownloadRequestItem} from "~/interfaces/DownloadRequestItem";
@@ -127,7 +128,7 @@ const closeIcon = `<svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, html?: string) {
     const e = document.createElement(tag)
     if (className) e.className = className
-    if (html) e.innerHTML = html
+    if (html) appendHtml(e, html)
     return e
 }
 
@@ -359,7 +360,7 @@ function openMenu(anchor: HTMLElement) {
     const link = currentVideoLink()
     videoInfoOf(link).then(info => {
         if (menu !== thisMenu) return
-        videoPart.innerHTML = ""
+        videoPart.replaceChildren()
         if (info.type === "video" && info.qualities?.length) {
             addMenuSection(
                 info.title ? `This video — ${info.title.slice(0, 60)}` : "This video",
