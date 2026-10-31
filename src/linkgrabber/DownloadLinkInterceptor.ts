@@ -176,13 +176,17 @@ export abstract class DownloadLinkInterceptor {
         if (downloadPage && this.isInConfigBlacklist(downloadPage)) {
             return false
         }
+        if (this.isBypassShortcutPressed()) {
+            return false
+        }
+        // the "force" key: take it whatever its type or size (web pages were already left out above)
+        if (BackgroundSharedState.isForceShortcutPressed()) {
+            return true
+        }
+
         // check file size minimum requirement
         const contentLength = getContentLength(responseHeaders)
         if (!this.doWeAcceptThisFileSize(contentLength)) {
-            return false
-        }
-
-        if (this.isBypassShortcutPressed()) {
             return false
         }
 

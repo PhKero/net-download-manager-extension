@@ -104,6 +104,9 @@ class ToolsViewModel extends EventAwareViewModel<ToolsViewModelEvent> implements
     @observable
     bypassShortcut!: string
 
+    @observable
+    forceShortcut!: string
+
     setAutoCaptureLinks(value: boolean) {
         Configs.setConfigItem("autoCaptureLinks", value)
     }
@@ -122,6 +125,10 @@ class ToolsViewModel extends EventAwareViewModel<ToolsViewModelEvent> implements
 
     setShortCut(value: string) {
         Configs.setConfigItem("bypassShortcut", value)
+    }
+
+    setForceShortcut(value: string) {
+        Configs.setConfigItem("forceShortcut", value)
     }
 
     setPopupEnabled(value: boolean) {
@@ -270,6 +277,9 @@ const SettingsSection: React.FC<{ vm: ToolsViewModel }> = observer((props) => {
                 bypassShortcut={vm.bypassShortcut}
                 defaultBypassShortcut={vm.defaultConfig.bypassShortcut}
                 setBypassShortcut={(v) => vm.setShortCut(v)}
+                forceShortcut={vm.forceShortcut}
+                defaultForceShortcut={vm.defaultConfig.forceShortcut}
+                setForceShortcut={(v) => vm.setForceShortcut(v)}
             />
             <Divider/>
             <ShowPopupSection value={vm.popupEnabled} toggle={(v) => vm.setPopupEnabled(v)}/>
@@ -419,6 +429,9 @@ function AutoCaptureSection(
         bypassShortcut: string,
         defaultBypassShortcut: string,
         setBypassShortcut: (s: string) => void,
+        forceShortcut: string,
+        defaultForceShortcut: string,
+        setForceShortcut: (s: string) => void,
     }
 ) {
     const [fileTypesString, setFileTypesString] = useState<string>(() => {
@@ -542,6 +555,16 @@ function AutoCaptureSection(
                     />
                 </div>
                 <div>{browser.i18n.getMessage("config_bypass_shortcut_description")}</div>
+                <div className="mt-3"/>
+                <div className="flex flex-col space-y-2">
+                    <label>{browser.i18n.getMessage("config_force_shortcut")}</label>
+                    <ShortcutCapture
+                        value={props.forceShortcut}
+                        defaultValue={props.defaultForceShortcut}
+                        onChange={props.setForceShortcut}
+                    />
+                </div>
+                <div>{browser.i18n.getMessage("config_force_shortcut_description")}</div>
             </div>
         }
     />

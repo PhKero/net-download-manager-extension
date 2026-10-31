@@ -79,6 +79,14 @@ const ConfigType = z.object({
         }
         return "Delete"
     }),
+    // IDM style: hold this key while clicking a link to make the app take the download even if its
+    // file type is not in the list or it is smaller than the minimum size (web pages are never taken)
+    forceShortcut: z.string().catch(() => {
+        if (isMac()) {
+            return "Alt"
+        }
+        return "Control"
+    }),
     apiKey: z.string().catch(""),
 })
 

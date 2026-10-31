@@ -167,6 +167,12 @@
   "config_bypass_shortcut_description": {
     "message": "When auto-capture of download links is enabled, holding down the shortcut key and clicking on the download link uses the internal browser download method."
   },
+  "config_force_shortcut": {
+    "message": "Force-download shortcut"
+  },
+  "config_force_shortcut_description": {
+    "message": "Hold this key while clicking a link and the app takes the download even if its file type is not in the list or it is smaller than the minimum size. Web pages are never taken. Like Ctrl in IDM."
+  },
   "context_menu_download_all_links": {
     "message": "Download all links with NDM"
   }
