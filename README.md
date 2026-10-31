@@ -1,46 +1,79 @@
+# Net Download Manager: browser extension
 
-<a href="https://addons.mozilla.org/en-US/firefox/addon/ab-download-manager/"><img src="https://img.shields.io/amo/v/ab-download-manager?label=Firefox&logo=firefoxbrowser" alt="Firefox Add-ons Version"></a>
-<a href="https://chromewebstore.google.com/detail/bbobopahenonfdgjgaleledndnnfhooj"> <img src="https://img.shields.io/chrome-web-store/v/bbobopahenonfdgjgaleledndnnfhooj?label=Chrome&logo=googlechrome" alt="Chrome Web Store Version"></a>
+The browser extension of [Net Download Manager](https://github.com/PhKero/net-download-manager),
+a free, open-source download manager for Windows. The app must be installed for the extension to work.
 
-# AB Download Manager Browser Integration Repository
+<p><a href="#عربي">العربية</a></p>
 
-> If you are looking for the main app repository, use [this link](https://github.com/amir1376/ab-download-manager).
-## Usage
+It is a modified version of the
+[AB Download Manager browser integration](https://github.com/amir1376/ab-download-manager-browser-integration)
+(Apache-2.0). It is not affiliated with AB Download Manager or with Internet Download Manager (IDM).
 
-In order to use this extension you need to [install](https://abdownloadmanager.com/#download) AB Download Manager.
+## What it does
 
-### This extension does the following
+- a **"Download this video"** bar on videos (also inside embedded players), with the qualities and their sizes
+- takes over file downloads from the browser and sends them to the app
+- right-click **"Download with NDM"** and **"Download all links with NDM"**
+- a **Download** button when you select part of a page that has links
 
-- Adds a `Download With AB DM` in browser's context menu
-- Automatically captures download links when the user wants to download the file from their browser
-- Show a `Download Selected` popup when the user selects some section of the page that contains links
+## Install
 
-## How To Build
-In order to build this extension locally:
-> I am developing this on `Windows` using `npm`, but it should have the same result on other build environments.
+**Firefox:** [addons.mozilla.org](https://addons.mozilla.org/firefox/addon/net-download-manager/), click *Add to Firefox*.
+
+**Microsoft Edge:** [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/lccdhoiokomnkflbefggcbofjimmnlah), click *Get*.
+
+### Install on Chrome
+
+The extension is not in the Chrome Web Store, so it is added from a folder. You only do this once.
+
+1. Get the extension folder, either way:
+   - it is already inside the app: `C:\Users\<you>\AppData\Local\ABDownloadManager\app\resources\addons\chrome`
+   - or download `NetDownloadManager-Chrome.zip` from the
+     [latest release](https://github.com/PhKero/net-download-manager/releases/latest) and unzip it to a folder you will keep
+2. In Chrome, open `chrome://extensions`.
+3. Turn on **Developer mode** (top right).
+4. Click **Load unpacked** and pick that folder.
+5. Done. Pin the extension from the puzzle icon if you want its button on the toolbar.
+
+Keep the folder where it is: Chrome loads the extension from it every time it starts.
+This also works in **Brave** and other Chromium browsers (`brave://extensions`).
+
+## Build
+
 ```bash
-# install dependencies
-npm i
-
-# for firefox
-npm run pack:firefox
-# for chrome
-npm run pack:chrome
+npm ci
+npm run build:firefox   # dist/firefox
+npm run build:chrome    # dist/chrome (also used for Edge)
 ```
 
-The output zip file containing the extension will be placed at `./dist/<browser_name>.zip`.
+## License
 
-## Repositories And Source Code
+Apache-2.0, like the project it is based on. See [LICENSE](LICENSE) and [PRIVACY.md](PRIVACY.md).
 
-There are multiple repositories related to the **AB Download Manager** project:
+---
 
-| Repository                                                                                                 | Description                                                                   |
-|------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| [Main Application](https://github.com/amir1376/ab-download-manager)                                        | Contains the  **Application** that runs on your  **device**                   |
-| [Browser Integration](https://github.com/amir1376/ab-download-manager-browser-integration)  (You are here) | Contains the **Browser Extension** to be installed on your  **browser**       |
-| [Website](https://github.com/amir1376/ab-download-manager-website)                                         | Contains the **AB Download Manager** [website](https://abdownloadmanager.com) |
+<h2 id="عربي" dir="rtl">عربي</h2>
 
-I spent a lot of time to create this project.
+<div dir="rtl">
 
-If you like my work, Please consider giving it a ⭐.
-Thanks ❤️
+إضافة المتصفح بتاعة برنامج **Net Download Manager**. لازم البرنامج يكون متسطب عشان الإضافة تشتغل.
+
+**التسطيب:**
+- **Firefox:** من [متجر Mozilla](https://addons.mozilla.org/firefox/addon/net-download-manager/)، اضغط Add to Firefox.
+- **Edge:** من [متجر Edge](https://microsoftedge.microsoft.com/addons/detail/lccdhoiokomnkflbefggcbofjimmnlah)، اضغط Get.
+
+<h3 dir="rtl">التسطيب على Chrome</h3>
+
+الإضافة مش موجودة في متجر كروم، فبتتضاف من فولدر. بتعمل كده مرة واحدة بس.
+
+1. هات فولدر الإضافة بطريقة من دول:
+   - موجود جوه البرنامج: `C:\Users\<اسمك>\AppData\Local\ABDownloadManager\app\resources\addons\chrome`
+   - أو حمّل `NetDownloadManager-Chrome.zip` من [آخر إصدار](https://github.com/PhKero/net-download-manager/releases/latest) وفك ضغطه في فولدر هتسيبه
+2. افتح في كروم `chrome://extensions`
+3. فعّل **Developer mode** (فوق على اليمين).
+4. اضغط **Load unpacked** واختار الفولدر.
+5. خلاص. لو عايز زرار الإضافة يظهر، ثبّته من أيقونة البازل.
+
+سيب الفولدر مكانه، لأن كروم بيفتح الإضافة منه كل مرة. نفس الخطوات بتشتغل على **Brave** وأي متصفح مبني على Chromium.
+
+</div>
